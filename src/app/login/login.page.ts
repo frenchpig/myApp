@@ -23,14 +23,14 @@ export class LoginPage implements OnInit {
       estado = true;
       this.mostrarToast(estado);
     }else{
-
+      this.mostrarToast(estado);
     }
   }
 
   async mostrarToast(valor: boolean) {
     const toast = await this.toastController.create({
       message: '¡Toast de ejemplo!',
-      duration: 5000, // Duración en milisegundos
+      duration: 3000, // Duración en milisegundos
       position: 'bottom' // Posición del Toast: 'top', 'middle', 'bottom'
     });
     if (valor==true){
@@ -39,6 +39,12 @@ export class LoginPage implements OnInit {
       toast.message='Credenciales Erroneas';
     }
     await toast.present();
+
+    setTimeout(() => {
+      this.username = '';
+      this.password = '';
+      this.router.navigate(['./home']);
+    }, 3000);
   }
 
 }
