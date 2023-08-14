@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Login</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <!-- Contenido -->
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Ingresar</ion-card-title>
+      <ion-card-subtitle>Inserta tus datos para poder acceder</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-input [(ngModel)]="username" name="username" id="username" type="text" label="Username"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="password" name="password" id="password" type="password" label="Password"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-button (click)="recuperarDatos()" expand="block" fill="clear" shape="round">
+            Ingresar
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-toast trigger="open-toast" message="This toast will disappear after 5 seconds" [duration]="5000"></ion-toast>
+</ion-content>
