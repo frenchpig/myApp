@@ -16,17 +16,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
-  transformToAsterisks(value: string): string {
-    if (typeof value === 'string') {
-      return value.replace(/[0-9]/g, '*');
-    }
-    return '';
-  }
-
-  onInputChange(event: any) {
-    this.password = event.detail.value;
-  }
-
   checkUserLength(name: string){
     let mensaje='';
     let estado = true;
@@ -40,46 +29,67 @@ export class LoginPage implements OnInit {
     return {estado, mensaje};
   }
 
+  checkPassNumbers(pass: string){
+    let regex = /^[0-9]+$/;
+    let estado = regex.test(pass);
+    let mensaje = '';
+    if (estado==false){
+      mensaje = 'La contraseña solo deben ser numeros.'
+      return {estado,mensaje}
+    }else if(estado==true){
+      return {estado,mensaje}
+    }
+    return {estado,mensaje};
+  }
+
   recuperarDatos(){
-    let estado = false;
+    let estado1 = false;
+    let estado2 = false;
+    let estadoTotal = false;
     let username = this.username;
     let password = this.password;
-    let mensaje;
+    let mensaje = 'Login Exitoso!';
     let resultados = this.checkUserLength(username);
-    estado = resultados.estado;
-    mensaje = resultados.mensaje;
-    if(estado==false){
-      this.mostrarToast(estado,mensaje);
+    estado1 = resultados.estado;
+    if(estado1==false){
+      mensaje = resultados.mensaje;
+      this.mostrarToast(estado1,mensaje);
       return;
     }
-    console.log(username,password);
-
-    // if (this.username == 'admin' && this.password == '1234'){
-    //   estado = true;
-    //   this.mostrarToast(estado);
-    // }else{
-    //   this.mostrarToast(estado);
-    // }
+    resultados = this.checkPassNumbers(password);
+    estado2 = resultados.estado;
+    if(estado2==false){
+      mensaje = resultados.mensaje;
+      this.mostrarToast(estado2,mensaje);
+      return;
+    }
+    if (this.username == 'admin' && this.password == '1234'){
+      estadoTotal = true;
+      this.mostrarToast(estadoTotal,mensaje);
+    }else{
+      mensaje = 'Credenciales Incorrectas'
+      this.mostrarToast(estadoTotal,mensaje);
+    }
   }
 
   async mostrarToast(valor: boolean,mensaje: string) {
     const toast = await this.toastController.create({
-      message: '¡Toast de ejemplo!',
+      message: mensaje,
       duration: 3000, // Duración en milisegundos
       position: 'bottom' // Posición del Toast: 'top', 'middle', 'bottom'
     });
-    if (valor==true){
-      toast.message=mensaje;
-    }else{
-      toast.message=mensaje;
-    }
     await toast.present();
-
-    setTimeout(() => {
+    if (valor==true){
+      setTimeout(() => {
+        this.username = '';
+        this.password = '';
+        this.router.navigate(['./home']);
+      }, 3000);
+    }else{
       this.username = '';
       this.password = '';
-      //this.router.navigate(['./home']);
-    }, 3000);
+    }
+
   }
 
 }
