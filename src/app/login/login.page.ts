@@ -83,7 +83,7 @@ export class LoginPage implements OnInit {
       setTimeout(() => {
         this.username = '';
         this.password = '';
-        this.router.navigate(['./home']);
+        this.router.navigate(['./main-page']);
       }, 3000);
     }else{
       this.username = '';

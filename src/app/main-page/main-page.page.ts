@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.page.html',
@@ -8,20 +9,23 @@ import { Router } from '@angular/router';
 })
 export class MainPagePage implements OnInit {
 
-  valorRecibido?: boolean;
-  resultadoLogin?: string;
+  name: string = '';
+  lastname: string = '';
+  public alertButtons = ['OK'];
+  alertMessage: string = '';
 
-  constructor(private route: ActivatedRoute,private router: Router) { }
+  constructor(private modalController: ModalController,private router: Router) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.valorRecibido = params.get('valor') === 'true';
-    });
-    if (this.valorRecibido==true){
-      this.resultadoLogin='Login Exitoso!'
-    }else{
-      this.resultadoLogin='Credenciales Erronas TwT'
-    }
+  }
+
+  changeAlertMessage(){
+    this.alertMessage = "Su nombre es "+this.name+' '+this.lastname;
+  }
+
+  cleanInputs(){
+    this.name = '';
+    this.lastname = '';
   }
 
   volverAtras(){
