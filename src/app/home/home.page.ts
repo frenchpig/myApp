@@ -25,7 +25,7 @@ export class HomePage {
       this.animation = this.animationCtrl
         .create()
         .addElement(titleElement)
-        .duration(2500)
+        .duration(100)
         .iterations(Infinity)
         .keyframes([
           { offset: 0, transform: 'translateX(0)', opacity: 1 },
