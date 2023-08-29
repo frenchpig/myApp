@@ -25,3 +25,13 @@
 #container a {
   text-decoration: none;
 }
+
+.ion-color-pastelBlue {
+	--ion-color-base: var(--ion-color-pastelBlue);
+	--ion-color-base-rgb: var(--ion-color-pastelBlue-rgb);
+	--ion-color-contrast: var(--ion-color-pastelBlue-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-pastelBlue-contrast-rgb);
+	--ion-color-shade: var(--ion-color-pastelBlue-shade);
+	--ion-color-tint: var(--ion-color-pastelBlue-tint);
+}
+
