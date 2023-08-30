@@ -25,13 +25,13 @@ export class HomePage {
       this.animation = this.animationCtrl
         .create()
         .addElement(titleElement)
-        .duration(100)
+        .duration(1000)
         .iterations(Infinity)
         .keyframes([
           { offset: 0, transform: 'translateX(0)', opacity: 1 },
           { offset: 0.2, transform: 'translateX(50%)', opacity: 1 },
           { offset: 0.4, transform: 'translateX(100%)', opacity: 0.2 },
-          { offset: 0.6, transform: 'translateX(-100%)', opacity: -2 },
+          { offset: 0.6, transform: 'translateX(-100%)', opacity: 0 },
           { offset: 1, transform: 'translateX(0)', opacity: 1 },
         ]);
         this.animation.play();
