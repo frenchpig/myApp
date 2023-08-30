@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginPage implements OnInit {
   username: string = '';
   password: string = '';
 
-  constructor(private router: Router,private toastController: ToastController) { }
+  constructor(private navCtrl: NavController,private toastController: ToastController) { }
 
   ngOnInit() {
   }
@@ -29,14 +30,26 @@ export class LoginPage implements OnInit {
     return {estado, mensaje};
   }
 
+  checkAlphanumeric(name: string){
+    let mensaje = '';
+    const regex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]+$/;
+    let estado = regex.test(name);
+
+    if (!estado){
+      mensaje='Usuario no es alfanumerico';
+    }
+    return {estado,mensaje}
+  }
+
   checkPassNumbers(pass: string){
     let regex = /^[0-9]+$/;
     let estado = regex.test(pass);
     let mensaje = '';
-    if (estado==false){
+
+    if (!estado){
       mensaje = 'La contraseña solo deben ser numeros.'
       return {estado,mensaje}
-    }else if(estado==true){
+    }else if(estado){
       return {estado,mensaje}
     }
     return {estado,mensaje};
@@ -45,29 +58,38 @@ export class LoginPage implements OnInit {
   recuperarDatos(){
     let estado1 = false;
     let estado2 = false;
+    let estado3 = false;
     let estadoTotal = false;
     let username = this.username;
     let password = this.password;
     let mensaje = 'Login Exitoso!';
+    //Comprobacion 1
     let resultados = this.checkUserLength(username);
     estado1 = resultados.estado;
-    if(estado1==false){
+    if(!estado1){
       mensaje = resultados.mensaje;
       this.mostrarToast(estado1,mensaje);
       return;
     }
+    //Comprobacion 2
     resultados = this.checkPassNumbers(password);
     estado2 = resultados.estado;
-    if(estado2==false){
+    if(!estado2){
       mensaje = resultados.mensaje;
       this.mostrarToast(estado2,mensaje);
       return;
     }
-    if (this.username == 'admin' && this.password == '1234'){
+    //Comprobacion 3
+    resultados = this.checkAlphanumeric(username);
+    estado3 = resultados.estado;
+    if (!estado3){
+      mensaje = resultados.mensaje;
+      this.mostrarToast(estado3,mensaje);
+      return;
+    }
+    //Login
+    if (estado1 && estado2 && estado3){
       estadoTotal = true;
-      this.mostrarToast(estadoTotal,mensaje);
-    }else{
-      mensaje = 'Credenciales Incorrectas'
       this.mostrarToast(estadoTotal,mensaje);
     }
   }
@@ -81,9 +103,11 @@ export class LoginPage implements OnInit {
     await toast.present();
     if (valor==true){
       setTimeout(() => {
+        let username = this.username;
         this.username = '';
         this.password = '';
-        this.router.navigate(['./main-page']);
+        this.navCtrl.navigateForward(`/main-page/${username}`);
+
       }, 3000);
     }else{
       this.username = '';

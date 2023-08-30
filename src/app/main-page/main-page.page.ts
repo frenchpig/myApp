@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AnimationController } from '@ionic/angular';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
@@ -15,12 +15,19 @@ export class MainPagePage implements OnInit {
 
   name: string = '';
   lastname: string = '';
+  username: string = '';
   public alertButtons = ['OK'];
   alertMessage: string = '';
 
-  constructor(private router: Router,private animationCtrl: AnimationController) { }
+  constructor(private route: ActivatedRoute,private router: Router,private animationCtrl: AnimationController) { }
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter() {
+    this.route.params.subscribe(params => {
+      this.username = params['username']
+    });
   }
 
   changeAlertMessage(){
