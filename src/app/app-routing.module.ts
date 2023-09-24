@@ -18,7 +18,20 @@ const routes: Routes = [
   {
     path: 'main-page/:username',
     loadChildren: () => import('./main-page/main-page.module').then( m => m.MainPagePageModule)
+  },
+  {
+    path: 'exp-lab',
+    loadChildren: () => import('./exp-lab/exp-lab.module').then( m => m.ExpLabPageModule)
+  },
+  {
+    path: 'certificaciones',
+    loadChildren: () => import('./certificaciones/certificaciones.module').then( m => m.CertificacionesPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./not-found/not-found.module').then( m => m.NotFoundPageModule)
   }
+
 ];
 
 @NgModule({

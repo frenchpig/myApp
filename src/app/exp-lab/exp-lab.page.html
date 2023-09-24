@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Experiencia Laboral</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Experiencia Laboral</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="container">
+    <ion-segment [(ngModel)]="opcion" (ionChange)="segmentChange($event)">
+      <ion-segment-button value="datos">
+        <ion-label>Mis Datos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="explab">
+        <ion-label>Experiencia Laboral</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="certificaciones">
+        <ion-label>Certificaciones</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <ion-list>
+    <ion-item>
+      <ion-input [(ngModel)]="empresa" label="Empresa"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="annioInicio" type="number" label="Año Inicio"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-toggle [(ngModel)]="afiliado" [checked]="true">Afiliado Actualmente</ion-toggle>
+    </ion-item>
+    <ion-item *ngIf="!afiliado">
+      <ion-input [(ngModel)]="annioTermino" type="number" label="Año Termino"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="cargo" label="Cargo"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button color="pastelBlue" id="clean" (click)="cleanInputs()" expand="block">
+    Guardar
+  </ion-button>
+
+</ion-content>

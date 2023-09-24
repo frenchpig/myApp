@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Ups! 404</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Ups!</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <img src="assets/img/404.svg" alt="Descripción de la imagen">
+  <p>La pagina que intentaste acceder no esta disponible!</p>
+  <ion-button color="pastelBlue" id="clean" (click)="getBack()" expand="block">
+    Home
+  </ion-button>
+
+</ion-content>

@@ -18,6 +18,7 @@ export class MainPagePage implements OnInit {
   username: string = '';
   public alertButtons = ['OK'];
   alertMessage: string = '';
+  opcion: string = "datos";
 
   constructor(private route: ActivatedRoute,private router: Router,private animationCtrl: AnimationController) { }
 
@@ -28,6 +29,7 @@ export class MainPagePage implements OnInit {
     this.route.params.subscribe(params => {
       this.username = params['username']
     });
+
   }
 
   changeAlertMessage(){
@@ -73,6 +75,18 @@ export class MainPagePage implements OnInit {
 
   volverAtras(){
     this.router.navigate(['./home']);
+  }
+
+  segmentChange(event: any){
+
+    if (this.opcion==="explab") {
+      this.router.navigate(['./exp-lab']);
+      this.opcion="datos";
+    }
+    if (this.opcion==="certificaciones"){
+      this.router.navigate(['./certificaciones']);
+      this.opcion="datos";
+    }
   }
 
 }

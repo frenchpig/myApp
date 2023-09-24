@@ -104,6 +104,7 @@ export class LoginPage implements OnInit {
     if (valor==true){
       setTimeout(() => {
         let username = this.username;
+        localStorage.setItem('username',JSON.stringify(username));
         this.username = '';
         this.password = '';
         this.navCtrl.navigateForward(`/main-page/${username}`);
