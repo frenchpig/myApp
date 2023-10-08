@@ -28,9 +28,15 @@ const routes: Routes = [
     loadChildren: () => import('./certificaciones/certificaciones.module').then( m => m.CertificacionesPageModule)
   },
   {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./not-found/not-found.module').then( m => m.NotFoundPageModule)
   }
+
+
 
 ];
 

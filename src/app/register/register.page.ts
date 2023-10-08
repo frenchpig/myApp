@@ -1,24 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
-import { NavController } from '@ionic/angular';
 import { DBTaskService } from '../services/dbtask.service';
 import { Router } from '@angular/router';
 
-
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'app-register',
+  templateUrl: './register.page.html',
+  styleUrls: ['./register.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class RegisterPage implements OnInit {
+  username:string='';
+  password:string='';
 
-  username: string = '';
-  password: string = '';
 
-  constructor(private router: Router,private toastController: ToastController,private dbTask:DBTaskService,private navCtrl: NavController) { }
+
+  constructor(
+              private toastController: ToastController,
+              private dbTask:DBTaskService,
+              private router: Router
+    ) { }
 
   ngOnInit() {
   }
+
   checkUserLength(name: string){
     let mensaje='';
     let estado = true;
@@ -57,7 +61,7 @@ export class LoginPage implements OnInit {
     return {estado,mensaje};
   }
 
-  async login(){
+  registrarUsuario(){
     var user = this.username;
     var pass = this.password;
     var resultado;
@@ -79,26 +83,17 @@ export class LoginPage implements OnInit {
       this.mostrarToast(resultado.mensaje);
       return;
     }
+    this.mostrarToast('Usuario Registrado Exitosamente');
     var userObject = [{
       username: this.username,
       password: this.password
     }];
 
-    let foundUser = await this.dbTask.returnOneUser(userObject);
-    if(foundUser== null){
-      this.mostrarToast("Usuario No Existe");
-      this.username='';
-      this.password='';
-      return;
-    }
-    if (this.password==foundUser.password){
-      this.mostrarToast('Usuario Logeado Exitosamente');
-      this.router.navigate(['./main-page']);
-      let json = localStorage.setItem('username',user);
-      this.navCtrl.navigateForward(`/main-page/${user}`);
-    }
 
-
+    this.dbTask.registerUser(userObject);
+    this.username='';
+    this.password='';
+    this.router.navigate(['./home']);
   }
 
   async mostrarToast(mensaje: string) {

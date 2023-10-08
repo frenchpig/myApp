@@ -43,5 +43,8 @@ export class HomePage {
   irALogin(){
     this.router.navigate(['./login']);
   }
+  irARegistro(){
+    this.router.navigate(['./register']);
+  }
 
 }
